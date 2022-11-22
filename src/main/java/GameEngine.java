@@ -70,6 +70,7 @@ public class GameEngine extends JPanel implements Runnable {
             // Spawns an obstacle with a certain variance when there is room
             if (this.obstacleCounter < this.maxObstacles) {
                 this.createAndSpawnObstacle();
+                this.obstacleCounter += 1;
             }
 
             this.prev_time = this.cur_time;
