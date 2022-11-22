@@ -1,7 +1,8 @@
-import javax.swing.JOptionPane;
+
 
 class Main{
     public static void main(String args[]){
-        JOptionPane.showMessageDialog(null, "Hello World!");
+        GameEngine engine = new GameEngine(800, 500);
+        engine.spawnGameThread();
     }
 }
