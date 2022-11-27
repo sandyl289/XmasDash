@@ -1,4 +1,4 @@
-import javax.swing.JFrame;
+import javax.swing.*;
 
 class Main{
     public static void main(String args[]){
@@ -6,6 +6,10 @@ class Main{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("XmasDash!");
+
+        ImageIcon dinoIcon = new ImageIcon("src/files/dino1.png");
+        window.setIconImage(dinoIcon.getImage());
+
         GamePanel panel = new GamePanel(900, 700);
         window.add(panel);
         window.pack();
