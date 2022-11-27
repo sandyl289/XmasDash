@@ -27,6 +27,10 @@ public class Player {
         return score;
     }
 
+    public String getScoreStr(){
+        String scoreStr = Integer.toString(this.score);
+        return scoreStr;
+    }
     public void setScore(int score) {
         this.score = score;
     }
