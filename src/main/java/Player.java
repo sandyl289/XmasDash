@@ -24,12 +24,9 @@ public class Player {
     public BufferedImage getDino1BufferedImage() {
         return dino1BufferedImage;
     }
-    public int getScore() {
-        return score;
-    }
 
     public String getScoreStr(){
-        String scoreStr = Integer.toString(this.score) + " pts";
+        String scoreStr = this.score + " pts";
         return scoreStr;
     }
     public void increaseScore() {
@@ -41,23 +38,11 @@ public class Player {
         return posX;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
     public int getPosY() {
         return posY;
     }
 
     public void setPosY(int posY) {
         this.posY = posY;
-    }
-
-    public String getPathDinoImg() {
-        return pathDinoImg;
-    }
-
-    public void setPathDinoImg(String pathDinoImg) {
-        this.pathDinoImg = pathDinoImg;
     }
 }
