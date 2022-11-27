@@ -1,10 +1,7 @@
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JPanel;
-import java.awt.Dimension;
-import java.awt.Color;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -57,11 +54,19 @@ public class GamePanel extends JPanel implements Runnable{
         g2.setColor(Color.RED);
         g2.drawRect(this.x, this.y, 30, 30);
 
-        Graphics2D g2Player = (Graphics2D)g;
-        g2Player.drawImage(this.player.getDino1BufferedImage(), 10,this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
+        Graphics2D playerGraphic2D = (Graphics2D)g;
+        playerGraphic2D.drawImage(this.player.getDino1BufferedImage(), 10,this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
+
+        Graphics2D scoreGraphics2D = (Graphics2D)g;
+        scoreGraphics2D.setColor(Color.darkGray);
+        scoreGraphics2D.setFont(new Font("Courier New", Font.BOLD, 30));
+        FontMetrics fontMetrics = scoreGraphics2D.getFontMetrics();
+        int scorePosX = this.width-fontMetrics.stringWidth(this.player.getScoreStr())-10;
+        scoreGraphics2D.drawString(this.player.getScoreStr(), scorePosX, 25);
 
         g2.dispose();
-        g2Player.dispose();
+        playerGraphic2D.dispose();
+        scoreGraphics2D.dispose();
     }
     
     private void createAndSpawnObstacle() {
@@ -85,7 +90,7 @@ public class GamePanel extends JPanel implements Runnable{
             this.cur_time = System.currentTimeMillis();
             if (this.cur_time - this.prev_time < 16.67 || this.paused)
                 continue;
-
+            this.player.setScore(this.player.getScore()+1);
             // Spawns an obstacle with a certain variance when there is room
             // if (this.obstacleCounter < this.maxObstacles) {
             //     this.createAndSpawnObstacle();
