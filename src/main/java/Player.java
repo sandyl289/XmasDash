@@ -2,7 +2,6 @@ import java.awt.image.BufferedImage;
 
 public class Player {
     private int score = 0;
-    private int life = 3;
     private int posX = 20;
     private int posY;
     private String pathDinoImg = "src/files/dino1.png";
@@ -57,13 +56,4 @@ public class Player {
     public void setPathDinoImg(String pathDinoImg) {
         this.pathDinoImg = pathDinoImg;
     }
-
-    public int getLife() {
-        return life;
-    }
-
-    public void setLife(int life) {
-        this.life = life;
-    }
-
 }
