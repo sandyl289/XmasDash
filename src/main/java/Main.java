@@ -2,6 +2,10 @@ import javax.swing.*;
 
 class Main{
     public static void main(String args[]){
+
+        MusicHelper musicHelper = new MusicHelper();
+        musicHelper.playBackgroundMusic();
+
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
