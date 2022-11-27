@@ -1,13 +1,8 @@
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Queue;
 import java.util.Random;
-
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
-
 import java.awt.Dimension;
 import java.awt.Color;
 
@@ -29,6 +24,8 @@ public class GamePanel extends JPanel implements Runnable{
     private int obstacleCounter;
     private final int maxObstacles = 6;
 
+    private Player player;
+
     Random rand = new Random();
     private boolean paused;
 
@@ -39,13 +36,13 @@ public class GamePanel extends JPanel implements Runnable{
         this.height = h;
         this.x = obstacleSpawnPoint[0];
         this.y = obstacleSpawnPoint[1];
+        this.player = new Player();
 
         this.setPreferredSize(new Dimension(this.width, this.height));
         this.setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
         this.addKeyListener(KH);
         this.setFocusable(true);
-
         Thread gameThread = new Thread(this);
         gameThread.start();
     }
@@ -58,9 +55,13 @@ public class GamePanel extends JPanel implements Runnable{
             this.y = this.obstacleSpawnPoint[1];
         }
         g2.setColor(Color.RED);
-
         g2.drawRect(this.x, this.y, 30, 30);
+
+        Graphics2D g2Player = (Graphics2D)g;
+        g2Player.drawImage(this.player.getDino1BufferedImage(), 10,this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
+
         g2.dispose();
+        g2Player.dispose();
     }
     
     private void createAndSpawnObstacle() {
