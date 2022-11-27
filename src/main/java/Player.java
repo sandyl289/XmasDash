@@ -7,12 +7,15 @@ public class Player {
     private String pathDinoImg = "src/files/dino1.png";
     private BufferedImage dino1BufferedImage;
     private final int SIZE_DINO = 70;
-    private static final double INITIAL_Y_POS = 20;
+    public static final int INITIAL_Y_POS = 363;
+    public static final int JUMP_Y_POS = INITIAL_Y_POS - 10;
+    private MusicHelper musicHelper;
 
     Player(){
         ImageHelper imageHelper = new ImageHelper();
         this.dino1BufferedImage = imageHelper.getBufferedImg(pathDinoImg);
-        this.posY = 363;  //todo: replace value by constant ground level value
+        this.posY = INITIAL_Y_POS;  //todo: replace value by constant ground level value
+        this.musicHelper = new MusicHelper();
     }
     public int getSizeDino() {
         return SIZE_DINO;
@@ -26,11 +29,12 @@ public class Player {
     }
 
     public String getScoreStr(){
-        String scoreStr = Integer.toString(this.score);
+        String scoreStr = Integer.toString(this.score) + " pts";
         return scoreStr;
     }
-    public void setScore(int score) {
-        this.score = score;
+    public void increaseScore() {
+        this.score++;
+        if(this.score%500 == 0) musicHelper.playSound(0);
     }
 
     public int getPosX() {

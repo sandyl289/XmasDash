@@ -90,7 +90,7 @@ public class GamePanel extends JPanel implements Runnable{
             this.cur_time = System.currentTimeMillis();
             if (this.cur_time - this.prev_time < 16.67 || this.paused)
                 continue;
-            this.player.setScore(this.player.getScore()+1);
+            this.player.increaseScore();
             // Spawns an obstacle with a certain variance when there is room
             // if (this.obstacleCounter < this.maxObstacles) {
             //     this.createAndSpawnObstacle();
