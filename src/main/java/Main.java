@@ -6,10 +6,10 @@ class Main{
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("XmasDash!");
-        window.setLocationRelativeTo(null);
         GamePanel panel = new GamePanel(900, 700);
         window.add(panel);
         window.pack();
+        window.setLocationRelativeTo(null);
         window.setVisible(true);
         //GameEngine engine = new GameEngine(800, 500);
         //engine.spawnGameThread();
