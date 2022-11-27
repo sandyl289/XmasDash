@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
         g2.drawRect(this.x, this.y, 30, 30);
 
         Graphics2D playerGraphic2D = (Graphics2D)g;
-        playerGraphic2D.drawImage(this.player.getDino1BufferedImage(), 10,this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
+        playerGraphic2D.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
 
         Graphics2D scoreGraphics2D = (Graphics2D)g;
         scoreGraphics2D.setColor(Color.darkGray);

@@ -3,18 +3,17 @@ import java.awt.image.BufferedImage;
 public class Player {
     private int score = 0;
     private int life = 3;
-    private int posX;
+    private int posX = 20;
     private int posY;
     private String pathDinoImg = "src/files/dino1.png";
     private BufferedImage dino1BufferedImage;
     private final int SIZE_DINO = 70;
-
     private static final double INITIAL_Y_POS = 20;
 
     Player(){
         ImageHelper imageHelper = new ImageHelper();
         this.dino1BufferedImage = imageHelper.getBufferedImg(pathDinoImg);
-        this.posY = 400;  //todo: replace value by constant ground level value
+        this.posY = 363;  //todo: replace value by constant ground level value
     }
     public int getSizeDino() {
         return SIZE_DINO;
