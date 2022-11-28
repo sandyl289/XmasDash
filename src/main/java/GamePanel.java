@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable{
     private final int maxObstacles = 6;
 
     private Player player;
-
+    private Obstacle obstacle;
     Random rand = new Random();
     private boolean paused;
 
@@ -34,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.x = obstacleSpawnPoint[0];
         this.y = obstacleSpawnPoint[1];
         this.player = new Player();
-
+        this.obstacle = new Obstacle();
         this.setPreferredSize(new Dimension(this.width, this.height));
         this.setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
@@ -51,8 +52,9 @@ public class GamePanel extends JPanel implements Runnable{
             this.x = this.obstacleSpawnPoint[0];
             this.y = this.obstacleSpawnPoint[1];
         }
-        g2.setColor(Color.RED);
-        g2.drawRect(this.x, this.y, 30, 30);
+//        g2.setColor(Color.RED);
+//        g2.drawRect(this.x, this.y, 30, 30);
+        g2.drawImage(this.obstacle.treeBufferedImg, this.x, this.y, 50, 50, null);
 
         Graphics2D playerGraphic2D = (Graphics2D)g;
         playerGraphic2D.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
@@ -111,4 +113,9 @@ public class GamePanel extends JPanel implements Runnable{
 }
 class Obstacle{
    public int x;
+   public BufferedImage treeBufferedImg;
+   Obstacle(){
+       ImageHelper imageHelper = new ImageHelper();
+       this.treeBufferedImg = imageHelper.getBufferedImg("src/files/tree.png");
+   }
 }
