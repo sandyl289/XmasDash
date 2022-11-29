@@ -13,7 +13,8 @@ public class GamePanel extends JPanel implements Runnable{
     public int[] obstacleSpawnPoint = {600, 400};
     ArrayList<Obstacle> obstacles = new ArrayList<>();
     ArrayList<Obstacle> obstaclesToInstantiate = new ArrayList<>();
-    private final int obstacleSpeed = 3;
+
+    public final int obstacleSpeed = 3; //todo: change obstacleSpeed name to objSpeed
     private final float obsGenMinDelay = 0.2f;
     private final float obsGenMaxDelay = 0.4f;
     private boolean terminal;
@@ -24,6 +25,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     private Player player;
     private Obstacle obstacle;
+    private Landscape landscape;
     Random rand = new Random();
     private boolean paused;
 
@@ -36,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.y = obstacleSpawnPoint[1];
         this.player = new Player();
         this.obstacle = new Obstacle();
+        this.landscape = new Landscape();
         this.setPreferredSize(new Dimension(this.width, this.height));
         this.setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
@@ -52,8 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
             this.x = this.obstacleSpawnPoint[0];
             this.y = this.obstacleSpawnPoint[1];
         }
-//        g2.setColor(Color.RED);
-//        g2.drawRect(this.x, this.y, 30, 30);
+
         g2.drawImage(this.obstacle.treeBufferedImg, this.x, this.y, 50, 50, null);
 
         Graphics2D playerGraphic2D = (Graphics2D)g;
@@ -65,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable{
         FontMetrics fontMetrics = scoreGraphics2D.getFontMetrics();
         int scorePosX = this.width-fontMetrics.stringWidth(this.player.getScoreStr())-10;
         scoreGraphics2D.drawString(this.player.getScoreStr(), scorePosX, 25);
-
+        this.landscape.paint(g2);
         g2.dispose();
         playerGraphic2D.dispose();
         scoreGraphics2D.dispose();

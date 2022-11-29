@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 public class Landscape {
     private ArrayList<Ground> grounds;
-    private String pathGroundImg = "src/files/ground.png";
     private static BufferedImage GROUND_BUFFERED_IMG;
+    private static BufferedImage MUD_BUFFERED_IMG;
 
     Landscape() {
         ImageHelper imageHelper = new ImageHelper();
-        this.GROUND_BUFFERED_IMG = imageHelper.getBufferedImg(pathGroundImg);
+        this.GROUND_BUFFERED_IMG = imageHelper.getBufferedImg("src/files/ground.png");
+        this.MUD_BUFFERED_IMG = imageHelper.getBufferedImg("src/files/mud.png");
 
        //Ground
         this.grounds = new ArrayList<>();
@@ -23,9 +24,13 @@ public class Landscape {
     }
 
     public void paint(Graphics2D g2){
+
+        g2.drawImage(this.MUD_BUFFERED_IMG, 0, Ground.Y +Ground.SIZE, 900, 200, null);
+
         for (Ground ground : this.grounds) {
-            g2.drawImage(GROUND_BUFFERED_IMG, ground.getX(), Ground.Y, 50, 50, null);
+            g2.drawImage(GROUND_BUFFERED_IMG, ground.getX(), Ground.Y, Ground.SIZE, Ground.SIZE, null);
         }
     }
+
 }
 
