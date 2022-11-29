@@ -10,6 +10,8 @@ public class GamePanel extends JPanel implements Runnable{
     int height;
     public int x;
     public int y;
+    public int playerSpawnX;
+    public int playerSpawnY;
     public int[] obstacleSpawnPoint = {600, 400};
     ArrayList<Obstacle> obstacles = new ArrayList<>();
     ArrayList<Obstacle> obstaclesToInstantiate = new ArrayList<>();
@@ -21,6 +23,10 @@ public class GamePanel extends JPanel implements Runnable{
     private long cur_time;
     private int obstacleCounter;
     private final int maxObstacles = 6;
+    private double jumpStartTime = 0;
+    private double prevRelativeLocation = 0;
+    private double curRelativeLocation = 0;
+
 
     private Player player;
     private Obstacle obstacle;
@@ -98,10 +104,13 @@ public class GamePanel extends JPanel implements Runnable{
             //     this.createAndSpawnObstacle();
             //     this.obstacleCounter += 1;
             // }
-            if (KH.spacePressed && KH.spacereleased){
-                y -= 10;
-                KH.spacereleased = false;
+            if (KH.spacePressed && KH.spacereleased && !this.player.getIsJumping()){
+                this.jumpStartTime = 0;
+                this.player.setIsJumping(true);
+                MusicHelper.playSound(1);
             }
+            if (this.player.getIsJumping()) jump();
+                
             x -= this.obstacleSpeed;
             repaint();
             
@@ -109,8 +118,24 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
+    private void jump(){  
+        this.jumpStartTime += 0.05;
+        this.curRelativeLocation = PhysicsEngine.moveWithForce(jumpStartTime, this.player.getIsJumping());
+
+        int temp = (this.player.getPosY() + -1 * (int) Math.ceil(this.curRelativeLocation));
+        if (temp > Player.INITIAL_Y_POS-2){
+            this.player.setPosY(Player.INITIAL_Y_POS);
+            this.player.setIsJumping(false);
+        }
+        else{
+            this.player.setPosY(temp);
+        }
+
+        this.prevRelativeLocation = this.curRelativeLocation;
+    }
 
 }
+
 class Obstacle{
    public int x;
    public BufferedImage treeBufferedImg;

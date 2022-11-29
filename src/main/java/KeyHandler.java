@@ -17,7 +17,6 @@ public class KeyHandler implements KeyListener{
 
         if(key == KeyEvent.VK_SPACE && !spacePressed){
             spacePressed = true;
-            System.out.println(spacePressed);
         }
     }
 
@@ -28,7 +27,6 @@ public class KeyHandler implements KeyListener{
         if(key == KeyEvent.VK_SPACE){
             spacePressed = false;
             spacereleased = true;
-            System.out.println(spacePressed);
 
         }
         

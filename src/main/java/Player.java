@@ -7,8 +7,11 @@ public class Player {
     private String pathDinoImg = "src/files/dino1.png";
     private BufferedImage dino1BufferedImage;
     private final int SIZE_DINO = 70;
-    public static final int INITIAL_Y_POS = 363;
+    public static final int INITIAL_Y_POS = 370;
     public static final int JUMP_Y_POS = INITIAL_Y_POS - 10;
+    public static final float JUMP_FORCE = 10f;
+    public float curJumpForce = JUMP_FORCE;
+    private boolean isJumping = false;
     private MusicHelper musicHelper;
 
     Player(){
@@ -44,5 +47,11 @@ public class Player {
 
     public void setPosY(int posY) {
         this.posY = posY;
+    }
+    public boolean getIsJumping(){
+        return this.isJumping;
+    }
+    public void setIsJumping(boolean jumping){
+        this.isJumping = jumping;
     }
 }
