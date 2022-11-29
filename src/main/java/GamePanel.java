@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JPanel;
 
@@ -10,11 +9,7 @@ public class GamePanel extends JPanel implements Runnable{
     int height;
     public int x;
     public int y;
-    public int playerSpawnX;
-    public int playerSpawnY;
     public int[] obstacleSpawnPoint = {600, 400};
-    ArrayList<Obstacle> obstacles = new ArrayList<>();
-    ArrayList<Obstacle> obstaclesToInstantiate = new ArrayList<>();
 
     public final int obstacleSpeed = 3; //todo: change obstacleSpeed name to objSpeed
     private final float obsGenMinDelay = 0.2f;
