@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.JPanel;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,8 +13,6 @@ public class GamePanel extends JPanel implements Runnable{
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
     ArrayList<Obstacle> obsToRemove = new ArrayList<>();
     private final int obstacleSpeed = 3;
-    private final float obsGenMinDelay = 0.2f;
-    private final float obsGenMaxDelay = 0.4f;
     private boolean terminal;
     private long prev_time;
     private long cur_time;
