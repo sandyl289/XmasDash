@@ -9,8 +9,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     int width;
     int height;
-    public int playerSpawnX;
-    public int playerSpawnY;
     public int[] obstacleSpawnPoint = {600, 400};
     ArrayList<Obstacle> activeObs = new ArrayList<>();
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
@@ -21,8 +19,6 @@ public class GamePanel extends JPanel implements Runnable{
     private boolean terminal;
     private long prev_time;
     private long cur_time;
-    private int obstacleCounter;
-    private final int maxObstacles = 6;
     private double jumpStartTime = 0;
     private double prevRelativeLocation = 0;
     private double curRelativeLocation = 0;
@@ -30,7 +26,6 @@ public class GamePanel extends JPanel implements Runnable{
     private Player player;
     private Obstacle obstacle;
     private Landscape landscape;
-    Random rand = new Random();
     private boolean paused;
 
     KeyHandler KH = new KeyHandler();
@@ -86,18 +81,6 @@ public class GamePanel extends JPanel implements Runnable{
         g2.dispose();
         playerGraphic2D.dispose();
         scoreGraphics2D.dispose();
-    }
-    
-    private void createAndSpawnObstacle() {
-        long delay = (long) (this.obsGenMinDelay + (this.obsGenMaxDelay - this.obsGenMinDelay) * rand.nextDouble());
-        try {
-            Thread.sleep(delay);
-        } catch (Exception e) {
-
-        } finally {
-
-        }
-        return;
     }
 
     @Override

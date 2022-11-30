@@ -7,17 +7,14 @@ public class Player {
     private String pathDinoImg = "src/files/dino1.png";
     private BufferedImage dino1BufferedImage;
     private final int SIZE_DINO = 70;
-    public static final int INITIAL_Y_POS = 370;
-    public static final int JUMP_Y_POS = INITIAL_Y_POS - 10;
-    public static final float JUMP_FORCE = 10f;
-    public float curJumpForce = JUMP_FORCE;
+    public static final int INITIAL_Y_POS = 382;
     private boolean isJumping = false;
     private MusicHelper musicHelper;
 
     Player(){
         ImageHelper imageHelper = new ImageHelper();
         this.dino1BufferedImage = imageHelper.getBufferedImg(pathDinoImg);
-        this.posY = INITIAL_Y_POS;  //todo: replace value by constant ground level value
+        this.posY = INITIAL_Y_POS;
         this.musicHelper = new MusicHelper();
     }
     public int getSizeDino() {
