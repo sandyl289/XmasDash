@@ -68,19 +68,20 @@ public class GamePanel extends JPanel implements Runnable{
             g2.drawImage(o.treeBufferedImg, o.x, o.y, 50, 50, null);
         }
 
-        Graphics2D playerGraphic2D = (Graphics2D)g;
-        playerGraphic2D.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
+        //Dino
+        g2.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
 
-        Graphics2D scoreGraphics2D = (Graphics2D)g;
-        scoreGraphics2D.setColor(Color.darkGray);
-        scoreGraphics2D.setFont(new Font("Courier New", Font.BOLD, 30));
-        FontMetrics fontMetrics = scoreGraphics2D.getFontMetrics();
+        //Score
+        g2.setColor(Color.darkGray);
+        g2.setFont(new Font("Courier New", Font.BOLD, 30));
+        FontMetrics fontMetrics = g2.getFontMetrics();
         int scorePosX = this.width-fontMetrics.stringWidth(this.player.getScoreStr())-10;
-        scoreGraphics2D.drawString(this.player.getScoreStr(), scorePosX, 25);
+        g2.drawString(this.player.getScoreStr(), scorePosX, 25);
+
+        //Landscape
         this.landscape.paint(g2);
+
         g2.dispose();
-        playerGraphic2D.dispose();
-        scoreGraphics2D.dispose();
     }
 
     @Override
