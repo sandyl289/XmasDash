@@ -3,18 +3,20 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JPanel;
+import java.util.Queue;
+import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePanel extends JPanel implements Runnable{
 
     int width;
     int height;
-    public int x;
-    public int y;
     public int playerSpawnX;
     public int playerSpawnY;
     public int[] obstacleSpawnPoint = {600, 400};
-    ArrayList<Obstacle> obstacles = new ArrayList<>();
-    ArrayList<Obstacle> obstaclesToInstantiate = new ArrayList<>();
+    ArrayList<Obstacle> activeObs = new ArrayList<>();
+    ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
+    ArrayList<Obstacle> obsToRemove = new ArrayList<>();
     private final int obstacleSpeed = 3;
     private final float obsGenMinDelay = 0.2f;
     private final float obsGenMaxDelay = 0.4f;
@@ -23,6 +25,7 @@ public class GamePanel extends JPanel implements Runnable{
     private long cur_time;
     private int obstacleCounter;
     private final int maxObstacles = 6;
+
     private double jumpStartTime = 0;
     private double prevRelativeLocation = 0;
     private double curRelativeLocation = 0;
@@ -34,12 +37,12 @@ public class GamePanel extends JPanel implements Runnable{
     private boolean paused;
 
     KeyHandler KH = new KeyHandler();
+    private long prev_time_obstacle = 0;
+    private long cur_time_obstacle = 0;
 
     public GamePanel(int w, int h){
         this.width = w;
         this.height = h;
-        this.x = obstacleSpawnPoint[0];
-        this.y = obstacleSpawnPoint[1];
         this.player = new Player();
         this.obstacle = new Obstacle();
         this.setPreferredSize(new Dimension(this.width, this.height));
@@ -47,6 +50,8 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(KH);
         this.setFocusable(true);
+        this.obsToSpawn.add(this.obstacle);
+        this.paused = false;
         Thread gameThread = new Thread(this);
         gameThread.start();
     }
@@ -54,13 +59,21 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        if (this.x < 10){
-            this.x = this.obstacleSpawnPoint[0];
-            this.y = this.obstacleSpawnPoint[1];
+        
+        //Spawns new obstacles
+        for (Obstacle o: this.obsToSpawn){
+            this.obsToRemove.add(o);
+            o.x = this.obstacleSpawnPoint[0];
+            o.y = this.obstacleSpawnPoint[1];
+            g2.drawImage(o.treeBufferedImg, o.x, o.y, 50, 50, null);
+            this.activeObs.add(o);
         }
-//        g2.setColor(Color.RED);
-//        g2.drawRect(this.x, this.y, 30, 30);
-        g2.drawImage(this.obstacle.treeBufferedImg, this.x, this.y, 50, 50, null);
+        this.obsToSpawn.removeAll(this.obsToRemove);
+        this.obsToRemove.removeAll(this.obsToRemove);
+        
+        for (Obstacle o: this.activeObs){
+            g2.drawImage(o.treeBufferedImg, o.x, o.y, 50, 50, null);
+        }
 
         Graphics2D playerGraphic2D = (Graphics2D)g;
         playerGraphic2D.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
@@ -92,29 +105,51 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
         // Game Loop
+        this.prev_time_obstacle = System.currentTimeMillis();
         while (!terminal) {
-            // 16.67 ms for 60Hz game loop
-            // Everything else goes under this if
-            this.cur_time = System.currentTimeMillis();
-            if (this.cur_time - this.prev_time < 16.67 || this.paused)
-                continue;
-            this.player.increaseScore();
-            // Spawns an obstacle with a certain variance when there is room
-            // if (this.obstacleCounter < this.maxObstacles) {
-            //     this.createAndSpawnObstacle();
-            //     this.obstacleCounter += 1;
-            // }
-            if (KH.spacePressed && KH.spacereleased && !this.player.getIsJumping()){
-                this.jumpStartTime = 0;
-                this.player.setIsJumping(true);
-                MusicHelper.playSound(1);
-            }
-            if (this.player.getIsJumping()) jump();
+            if (!this.paused){ 
+                // 16.67 ms for 60Hz game loop
+                // Everything else goes under this if
+                this.cur_time = System.currentTimeMillis();
+                if (this.cur_time - this.prev_time < 16.67 || this.paused)
+                    continue;
+                this.player.increaseScore();
+    
+                if (KH.spacePressed && KH.spacereleased && !this.player.getIsJumping()){
+                    this.jumpStartTime = 0;
+                    this.player.setIsJumping(true);
+                    MusicHelper.playSound(1);
+                }
+                if (this.player.getIsJumping()) jump();
                 
-            x -= this.obstacleSpeed;
-            repaint();
-            
-            this.prev_time = this.cur_time;
+                this.cur_time_obstacle = System.currentTimeMillis();
+                if (this.cur_time_obstacle - this.prev_time_obstacle >= (long) ThreadLocalRandom.current().nextInt(3000, 4500 + 1)){
+                    this.obsToSpawn.add(new Obstacle());
+                    this.prev_time_obstacle = this.cur_time_obstacle;
+                }
+
+                for (Obstacle o: this.activeObs){
+                    o.x -= this.obstacleSpeed;
+                    if (o.x + 50 <= 0){
+                        this.obsToRemove.add(o);
+                        continue;
+                    }
+                    if (PhysicsEngine.detectCollision(
+                        (float) this.player.getPosX() + (float) this.player.getSizeDino() - 15.0f, (float) this.player.getPosY(),
+                      (float) this.player.getPosX() + (float) this.player.getSizeDino() - 15.0f, (float) this.player.getPosY() + (float) this.player.getSizeDino(),
+                      (float) o.x + 15f, (float) o.y,
+                      (float) o.x + 14.8f, (float) o.y + 50)){
+                        MusicHelper.playSound(2);
+                        this.paused = true;               
+                    }
+                }
+                this.activeObs.removeAll(this.obsToRemove);
+                this.obsToRemove.removeAll(obsToRemove);
+    
+                repaint();
+                
+                this.prev_time = this.cur_time;
+            }
         }
     }
 
@@ -138,6 +173,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 class Obstacle{
    public int x;
+   public int y;
    public BufferedImage treeBufferedImg;
    Obstacle(){
        ImageHelper imageHelper = new ImageHelper();
