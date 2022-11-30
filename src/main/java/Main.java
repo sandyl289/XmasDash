@@ -17,7 +17,5 @@ class Main{
         window.pack();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-        //GameEngine engine = new GameEngine(800, 500);
-        //engine.spawnGameThread();
     }
 }
