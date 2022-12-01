@@ -12,7 +12,7 @@ public class GamePanel extends JPanel implements Runnable{
     ArrayList<Obstacle> activeObs = new ArrayList<>();
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
     ArrayList<Obstacle> obsToRemove = new ArrayList<>();
-    private final int obstacleSpeed = 3;
+    private int objSpeed = 3;  //Speed of objects
     private boolean terminal;
     private long prev_time;
     private long cur_time;
@@ -106,7 +106,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
 
                 for (Obstacle o: this.activeObs){
-                    o.x -= this.obstacleSpeed;
+                    o.x -= this.objSpeed;
                     if (o.x + 50 <= 0){
                         this.obsToRemove.add(o);
                         continue;
@@ -122,7 +122,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 this.activeObs.removeAll(this.obsToRemove);
                 this.obsToRemove.removeAll(obsToRemove);
-    
+
                 repaint();
                 
                 this.prev_time = this.cur_time;
