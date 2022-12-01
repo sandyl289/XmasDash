@@ -6,9 +6,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    int width;
-    int height;
-    public int[] obstacleSpawnPoint = {600, 400};
+    static int WINDOW_WIDTH = 900; // Window Width
+    static int WINDOW_HEIGHT = 700; // Window Height
+    private int OBSTACLE_SPAWN_POINT_Y = 400;
     ArrayList<Obstacle> activeObs = new ArrayList<>();
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
     ArrayList<Obstacle> obsToRemove = new ArrayList<>();
@@ -29,13 +29,11 @@ public class GamePanel extends JPanel implements Runnable{
     private long prev_time_obstacle = 0;
     private long cur_time_obstacle = 0;
 
-    public GamePanel(int w, int h){
-        this.width = w;
-        this.height = h;
+    public GamePanel(){
         this.player = new Player();
         this.obstacle = new Obstacle();
         this.landscape = new Landscape();
-        this.setPreferredSize(new Dimension(this.width, this.height));
+        this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         this.setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
         this.addKeyListener(KH);
@@ -53,8 +51,8 @@ public class GamePanel extends JPanel implements Runnable{
         //Spawns new obstacles
         for (Obstacle o: this.obsToSpawn){
             this.obsToRemove.add(o);
-            o.x = this.obstacleSpawnPoint[0];
-            o.y = this.obstacleSpawnPoint[1];
+            o.x = WINDOW_WIDTH;
+            o.y = OBSTACLE_SPAWN_POINT_Y;
             g2.drawImage(o.treeBufferedImg, o.x, o.y, 50, 50, null);
             this.activeObs.add(o);
         }
@@ -72,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
         g2.setColor(Color.darkGray);
         g2.setFont(new Font("Courier New", Font.BOLD, 30));
         FontMetrics fontMetrics = g2.getFontMetrics();
-        int scorePosX = this.width-fontMetrics.stringWidth(this.player.getScoreStr())-10;
+        int scorePosX = WINDOW_WIDTH-fontMetrics.stringWidth(this.player.getScoreStr())-10;
         g2.drawString(this.player.getScoreStr(), scorePosX, 25);
 
         //Landscape

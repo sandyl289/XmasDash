@@ -12,7 +12,7 @@ class Main{
         ImageIcon dinoIcon = new ImageIcon("src/files/dino1.png");
         window.setIconImage(dinoIcon.getImage());
 
-        GamePanel panel = new GamePanel(900, 700);
+        GamePanel panel = new GamePanel();
         window.add(panel);
         window.pack();
         window.setLocationRelativeTo(null);
