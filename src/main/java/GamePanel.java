@@ -74,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable{
         g2.drawString(this.player.getScoreStr(), scorePosX, 25);
 
         //Landscape
+        this.landscape.moveLandscape(objSpeed);
         this.landscape.paint(g2);
 
         g2.dispose();
@@ -124,7 +125,7 @@ public class GamePanel extends JPanel implements Runnable{
                 this.obsToRemove.removeAll(obsToRemove);
 
                 repaint();
-                
+
                 this.prev_time = this.cur_time;
             }
         }
