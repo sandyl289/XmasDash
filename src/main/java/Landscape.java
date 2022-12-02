@@ -28,10 +28,15 @@ public class Landscape {
 
         //Cloud
         this.clouds = new ArrayList<>();
-        for(int i = 0; i < 4; i++){
-            Cloud cloud = new Cloud(i*150, i*50);
+        for(int i = 0; i < 3; i++){
+            Cloud cloud = new Cloud(i*200, i*70);
             this.clouds.add(cloud);
         }
+        Cloud cloud = new Cloud(600, 70);
+        Cloud cloud2 = new Cloud(800, 100);
+        this.clouds.add(cloud);
+        this.clouds.add(cloud2);
+
     }
 
     public void paint(Graphics2D g2){
