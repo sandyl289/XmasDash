@@ -9,13 +9,11 @@ public class Player {
     public static final int SIZE_DINO = 70;
     public static final int INITIAL_Y_POS = 382;
     private boolean isJumping = false;
-    private MusicHelper musicHelper;
 
     Player(){
         ImageHelper imageHelper = new ImageHelper();
         this.dino1BufferedImage = imageHelper.getBufferedImg(pathDinoImg);
         this.posY = INITIAL_Y_POS;
-        this.musicHelper = new MusicHelper();
     }
 
     public BufferedImage getDino1BufferedImage() {
