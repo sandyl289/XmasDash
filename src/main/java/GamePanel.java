@@ -8,20 +8,20 @@ public class GamePanel extends JPanel implements Runnable{
 
     static int WINDOW_WIDTH = 900; // Window Width
     static int WINDOW_HEIGHT = 700; // Window Height
-    private int OBSTACLE_SPAWN_POINT_Y = 400;
+    private final int OBSTACLE_SPAWN_POINT_Y = 400;
     ArrayList<Obstacle> activeObs = new ArrayList<>();
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
     ArrayList<Obstacle> obsToRemove = new ArrayList<>();
-    private int objSpeed = 3;  //Speed of objects
+    private final int objSpeed = 3;  //Speed of objects
     private boolean terminal;
     private long prev_time;
     private long cur_time;
     private double jumpStartTime = 0;
     private double curRelativeLocation = 0;
     
-    private Player player;
-    private Obstacle obstacle;
-    private Landscape landscape;
+    private final Player player;
+    private final Obstacle obstacle;
+    private final Landscape landscape;
     private boolean paused;
 
     KeyHandler KH = new KeyHandler();
@@ -83,6 +83,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
+        long prev_time_obstacle;
+        long cur_time_obstacle;
         // Game Loop
         this.prev_time_obstacle = System.currentTimeMillis();
         while (!terminal) {
