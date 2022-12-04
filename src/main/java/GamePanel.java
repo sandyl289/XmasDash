@@ -11,9 +11,9 @@ public class GamePanel extends JPanel implements Runnable{
     static int WINDOW_WIDTH = 900; // Window Width
     static int WINDOW_HEIGHT = 700; // Window Height
     private int OBSTACLE_SPAWN_POINT_Y = 400;
-    ArrayList<Obstacle> activeObs = new ArrayList<>();
-    ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
-    ArrayList<Obstacle> obsToRemove = new ArrayList<>();
+    private ArrayList<Obstacle> activeObs = new ArrayList<>();
+    private ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
+    private ArrayList<Obstacle> obsToRemove = new ArrayList<>();
     private int objSpeed = 3;  //Speed of objects
     private boolean terminal;
     private long prev_time;
@@ -30,6 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler KH = new KeyHandler();
     private long prev_time_obstacle = 0;
     private long cur_time_obstacle = 0;
+    private boolean gameover;
 
     public GamePanel(){
 
@@ -42,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.addKeyListener(KH);
         this.setFocusable(true);
         this.obsToSpawn.add(this.obstacle);
-        this.paused = false;
+        this.gameover = false;
         Thread gameThread = new Thread(this);
         gameThread.start();
     }
@@ -50,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        
+
         //Spawns new obstacles
         for (Obstacle o: this.obsToSpawn){
             this.obsToRemove.add(o);
@@ -81,6 +82,14 @@ public class GamePanel extends JPanel implements Runnable{
         int scorePosX = WINDOW_WIDTH-fontMetrics.stringWidth(this.player.getScoreStr())-10;
         g2.drawString(this.player.getScoreStr(), scorePosX, 25);
 
+        if (this.gameover){
+            g2.setFont(new Font("Courier New", Font.BOLD, 60));
+            g2.drawString("GAME OVER!!!", WINDOW_WIDTH/2 - fontMetrics.stringWidth("GAME OVER!"), WINDOW_HEIGHT/2);
+            g2.setFont(new Font("Courier New", Font.BOLD, 20));
+            g2.drawString("Press R to restart", WINDOW_WIDTH/2 - fontMetrics.stringWidth("Press R to restart")/3, WINDOW_HEIGHT/2 + 40);
+            MusicHelper.playSound(3);
+        }
+
         g2.dispose();
     }
 
@@ -89,7 +98,11 @@ public class GamePanel extends JPanel implements Runnable{
         // Game Loop
         this.prev_time_obstacle = System.currentTimeMillis();
         while (!terminal) {
-            if (!this.paused){ 
+            if (KH.rPressed && gameover){
+                repaint();
+                reset();
+            }
+            if (!KH.pPressed && !gameover){ 
                 // 16.67 ms for 60Hz game loop
                 // Everything else goes under this if
                 this.cur_time = System.currentTimeMillis();
@@ -120,9 +133,10 @@ public class GamePanel extends JPanel implements Runnable{
                         (float) this.player.getPosX() + (float) this.player.getSizeDino() - 15.0f, (float) this.player.getPosY(),
                       (float) this.player.getPosX() + (float) this.player.getSizeDino() - 15.0f, (float) this.player.getPosY() + (float) this.player.getSizeDino(),
                       (float) o.x + 15f, (float) o.y,
-                      (float) o.x + 14.8f, (float) o.y + 50)){
+                      (float) o.x + 14.8f, (float) o.y + 50))
+                      {
                         MusicHelper.playSound(2);
-                        this.paused = true;               
+                        this.gameover = true;     
                     }
                 }
                 this.activeObs.removeAll(this.obsToRemove);
@@ -149,7 +163,20 @@ public class GamePanel extends JPanel implements Runnable{
         this.prevRelativeLocation = this.curRelativeLocation;
     }
 
+    private void reset(){
+        for (Obstacle o: this.activeObs){
+            this.obsToRemove.add(o);
+        }
+        this.activeObs.removeAll(this.obsToRemove);
+        this.obsToRemove.removeAll(this.obsToRemove);
+        this.player.resetScore();
+        this.gameover = false;
+        this.KH.rPressed = false;
+        this.prev_time_obstacle = 0;
+        this.cur_time_obstacle = 0;
+    }
 }
+
 
 class Obstacle{
    public int x;
