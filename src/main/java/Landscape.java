@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class Landscape {
     private ArrayList<Ground> grounds;
     private ArrayList<Cloud> clouds;
-    private static BufferedImage GROUND_BUFFERED_IMG;
-    private static BufferedImage MUD_BUFFERED_IMG;
-    private static BufferedImage CLOUD_BUFFERED_IMG;
+    private BufferedImage GROUND_BUFFERED_IMG;
+    private BufferedImage MUD_BUFFERED_IMG;
+    private BufferedImage CLOUD_BUFFERED_IMG;
     int lastGroundPosX;
     Landscape() {
         ImageHelper imageHelper = new ImageHelper();
