@@ -13,7 +13,6 @@ public class GamePanel extends JPanel implements Runnable{
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
     ArrayList<Obstacle> obsToRemove = new ArrayList<>();
     private final int objSpeed = 3;  //Speed of objects
-    private boolean terminal;
     private long prev_time;
     private long cur_time;
     private double jumpStartTime = 0;
@@ -96,7 +95,7 @@ public class GamePanel extends JPanel implements Runnable{
         long cur_time_obstacle;
         // Game Loop
         this.prev_time_obstacle = System.currentTimeMillis();
-        while (!terminal) {
+        while (true) {
             if (KH.rPressed && gameover){
                 repaint();
                 reset();
