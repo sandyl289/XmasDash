@@ -31,7 +31,7 @@ public class Player {
     }
     public void increaseScore() {
         this.score++;
-        if(this.score%500 == 0) musicHelper.playSound(0);
+        if(this.score%500 == 0) MusicHelper.playSound(0);
     }
 
     public int getPosX() {
