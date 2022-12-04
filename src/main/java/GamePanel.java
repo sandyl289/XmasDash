@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import java.util.Queue;
+import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -19,7 +21,7 @@ public class GamePanel extends JPanel implements Runnable{
     private double jumpStartTime = 0;
     private double prevRelativeLocation = 0;
     private double curRelativeLocation = 0;
-
+    
     private Player player;
     private Obstacle obstacle;
     private Landscape landscape;
