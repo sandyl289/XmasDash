@@ -19,7 +19,6 @@ public class GamePanel extends JPanel implements Runnable{
     private long prev_time;
     private long cur_time;
     private double jumpStartTime = 0;
-    private double prevRelativeLocation = 0;
     private double curRelativeLocation = 0;
     
     private Player player;
