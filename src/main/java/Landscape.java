@@ -54,14 +54,6 @@ public class Landscape {
 
     public void moveLandscape(int speed){
         int x;
-        for(Ground ground: this.grounds){
-            x = ground.getX() - speed;
-            if(x <= - Ground.SIZE){
-                x = lastGroundPosX;
-                lastGroundPosX = x;
-            }
-            ground.setX(x);
-        }
 
         for(Cloud cloud: this.clouds){
             x = cloud.getX() - speed;
