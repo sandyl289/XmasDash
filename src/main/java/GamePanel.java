@@ -144,8 +144,6 @@ public class GamePanel extends JPanel implements Runnable{
         else{
             this.player.setPosY(temp);
         }
-
-        this.prevRelativeLocation = this.curRelativeLocation;
     }
 
 }
