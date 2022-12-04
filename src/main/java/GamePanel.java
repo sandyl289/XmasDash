@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.JPanel;
 import java.util.Queue;
 import java.util.LinkedList;
@@ -9,43 +8,35 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePanel extends JPanel implements Runnable{
 
-    int width;
-    int height;
-    public int playerSpawnX;
-    public int playerSpawnY;
-    public int[] obstacleSpawnPoint = {600, 400};
+    static int WINDOW_WIDTH = 900; // Window Width
+    static int WINDOW_HEIGHT = 700; // Window Height
+    private int OBSTACLE_SPAWN_POINT_Y = 400;
     ArrayList<Obstacle> activeObs = new ArrayList<>();
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
     ArrayList<Obstacle> obsToRemove = new ArrayList<>();
-    private final int obstacleSpeed = 3;
-    private final float obsGenMinDelay = 0.2f;
-    private final float obsGenMaxDelay = 0.4f;
+    private int objSpeed = 3;  //Speed of objects
     private boolean terminal;
     private long prev_time;
     private long cur_time;
-    private int obstacleCounter;
-    private final int maxObstacles = 6;
-
     private double jumpStartTime = 0;
     private double prevRelativeLocation = 0;
     private double curRelativeLocation = 0;
-
-
+    
     private Player player;
     private Obstacle obstacle;
-    Random rand = new Random();
+    private Landscape landscape;
     private boolean paused;
 
     KeyHandler KH = new KeyHandler();
     private long prev_time_obstacle = 0;
     private long cur_time_obstacle = 0;
 
-    public GamePanel(int w, int h){
-        this.width = w;
-        this.height = h;
+    public GamePanel(){
+
         this.player = new Player();
         this.obstacle = new Obstacle();
-        this.setPreferredSize(new Dimension(this.width, this.height));
+        this.landscape = new Landscape();
+        this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         this.setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
         this.addKeyListener(KH);
@@ -63,8 +54,9 @@ public class GamePanel extends JPanel implements Runnable{
         //Spawns new obstacles
         for (Obstacle o: this.obsToSpawn){
             this.obsToRemove.add(o);
-            o.x = this.obstacleSpawnPoint[0];
-            o.y = this.obstacleSpawnPoint[1];
+
+            o.x = WINDOW_WIDTH;
+            o.y = OBSTACLE_SPAWN_POINT_Y;
             g2.drawImage(o.treeBufferedImg, o.x, o.y, 50, 50, null);
             this.activeObs.add(o);
         }
@@ -75,31 +67,21 @@ public class GamePanel extends JPanel implements Runnable{
             g2.drawImage(o.treeBufferedImg, o.x, o.y, 50, 50, null);
         }
 
-        Graphics2D playerGraphic2D = (Graphics2D)g;
-        playerGraphic2D.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
+        //Dino
+        g2.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
+        
+        //Landscape
+        this.landscape.moveLandscape(objSpeed);
+        this.landscape.paint(g2);
 
-        Graphics2D scoreGraphics2D = (Graphics2D)g;
-        scoreGraphics2D.setColor(Color.darkGray);
-        scoreGraphics2D.setFont(new Font("Courier New", Font.BOLD, 30));
-        FontMetrics fontMetrics = scoreGraphics2D.getFontMetrics();
-        int scorePosX = this.width-fontMetrics.stringWidth(this.player.getScoreStr())-10;
-        scoreGraphics2D.drawString(this.player.getScoreStr(), scorePosX, 25);
+        //Score
+        g2.setColor(Color.darkGray);
+        g2.setFont(new Font("Courier New", Font.BOLD, 30));
+        FontMetrics fontMetrics = g2.getFontMetrics();
+        int scorePosX = WINDOW_WIDTH-fontMetrics.stringWidth(this.player.getScoreStr())-10;
+        g2.drawString(this.player.getScoreStr(), scorePosX, 25);
 
         g2.dispose();
-        playerGraphic2D.dispose();
-        scoreGraphics2D.dispose();
-    }
-    
-    private void createAndSpawnObstacle() {
-        long delay = (long) (this.obsGenMinDelay + (this.obsGenMaxDelay - this.obsGenMinDelay) * rand.nextDouble());
-        try {
-            Thread.sleep(delay);
-        } catch (Exception e) {
-
-        } finally {
-
-        }
-        return;
     }
 
     @Override
@@ -129,7 +111,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
 
                 for (Obstacle o: this.activeObs){
-                    o.x -= this.obstacleSpeed;
+                    o.x -= this.objSpeed;
                     if (o.x + 50 <= 0){
                         this.obsToRemove.add(o);
                         continue;
@@ -145,9 +127,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 this.activeObs.removeAll(this.obsToRemove);
                 this.obsToRemove.removeAll(obsToRemove);
-    
                 repaint();
-                
                 this.prev_time = this.cur_time;
             }
         }
