@@ -28,6 +28,9 @@ public class Player {
         this.score++;
         if(this.score%500 == 0) MusicHelper.playSound(0);
     }
+    public void resetScore(){
+        this.score = 0;
+    }
 
     public int getPosX() {
         return posX;
