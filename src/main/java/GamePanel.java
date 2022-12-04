@@ -32,6 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
     private long cur_time_obstacle = 0;
 
     public GamePanel(){
+
         this.player = new Player();
         this.obstacle = new Obstacle();
         this.landscape = new Landscape();
@@ -53,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
         //Spawns new obstacles
         for (Obstacle o: this.obsToSpawn){
             this.obsToRemove.add(o);
+
             o.x = WINDOW_WIDTH;
             o.y = OBSTACLE_SPAWN_POINT_Y;
             g2.drawImage(o.treeBufferedImg, o.x, o.y, 50, 50, null);
@@ -125,9 +127,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 this.activeObs.removeAll(this.obsToRemove);
                 this.obsToRemove.removeAll(obsToRemove);
-
                 repaint();
-
                 this.prev_time = this.cur_time;
             }
         }
