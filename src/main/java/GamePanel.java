@@ -51,13 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        if (KH.rPressed && this.gameover){
-            for (Obstacle o: this.activeObs){
-                this.obsToSpawn.add(o);
-                this.obsToRemove.add(o);
-            }
-            this.player.resetScore();
-        }
+
         //Spawns new obstacles
         for (Obstacle o: this.obsToSpawn){
             this.obsToRemove.add(o);
@@ -90,7 +84,9 @@ public class GamePanel extends JPanel implements Runnable{
 
         if (this.gameover){
             g2.setFont(new Font("Courier New", Font.BOLD, 60));
-            g2.drawString("GAME OVER!!!", WINDOW_WIDTH/2 - fontMetrics.stringWidth("GAME OVER!!!"), WINDOW_HEIGHT/2);
+            g2.drawString("GAME OVER!!!", WINDOW_WIDTH/2 - fontMetrics.stringWidth("GAME OVER!"), WINDOW_HEIGHT/2);
+            g2.setFont(new Font("Courier New", Font.BOLD, 20));
+            g2.drawString("Press R to restart", WINDOW_WIDTH/2 - fontMetrics.stringWidth("Press R to restart")/3, WINDOW_HEIGHT/2 + 40);
         }
 
         g2.dispose();
@@ -103,8 +99,7 @@ public class GamePanel extends JPanel implements Runnable{
         while (!terminal) {
             if (KH.rPressed && gameover){
                 repaint();
-                this.gameover = false;
-                this.KH.rPressed = false;
+                reset();
             }
             if (!KH.pPressed && !gameover){ 
                 // 16.67 ms for 60Hz game loop
@@ -167,7 +162,20 @@ public class GamePanel extends JPanel implements Runnable{
         this.prevRelativeLocation = this.curRelativeLocation;
     }
 
+    private void reset(){
+        for (Obstacle o: this.activeObs){
+            this.obsToRemove.add(o);
+        }
+        this.activeObs.removeAll(this.obsToRemove);
+        this.obsToRemove.removeAll(this.obsToRemove);
+        this.player.resetScore();
+        this.gameover = false;
+        this.KH.rPressed = false;
+        this.prev_time_obstacle = 0;
+        this.cur_time_obstacle = 0;
+    }
 }
+
 
 class Obstacle{
    public int x;
