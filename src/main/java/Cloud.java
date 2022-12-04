@@ -1,7 +1,7 @@
 public class Cloud {
     private int x = 0;
     private int y = 450;
-    public static int SIZE = 70;
+    public static final int SIZE = 70;
     public int getX() {
         return x;
     }
