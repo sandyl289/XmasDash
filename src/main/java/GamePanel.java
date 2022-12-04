@@ -65,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
         //Dino
-        g2.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
+        g2.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), Player.SIZE_DINO,Player.SIZE_DINO, null);
         
         //Landscape
         this.landscape.moveLandscape(objSpeed);
@@ -114,8 +114,8 @@ public class GamePanel extends JPanel implements Runnable{
                         continue;
                     }
                     if (PhysicsEngine.detectCollision(
-                        (float) this.player.getPosX() + (float) this.player.getSizeDino() - 15.0f, (float) this.player.getPosY(),
-                      (float) this.player.getPosX() + (float) this.player.getSizeDino() - 15.0f, (float) this.player.getPosY() + (float) this.player.getSizeDino(),
+                        (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY(),
+                      (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
                       (float) o.x + 15f, (float) o.y,
                       (float) o.x + 14.8f, (float) o.y + 50)){
                         MusicHelper.playSound(2);
