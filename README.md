@@ -2,14 +2,16 @@
 
 # XmasDash 🎄💨
 
-Project inspired by [Dino T-Rex (Chrome Dino)](chrome://dino/) game.
+Project inspired by [Dino T-Rex (Chrome Dino)](https://dino-chrome.com/en) game.
+
+# How to Play 🎮
+Use the space bar to make the dino jump. The goal is to jump over all the Christmas trees 🎄.
 
 # Developers 👋
-|Names|
-|----|
-|💻 Aidan Jackson|  
-|💻 Sandy Lao|  
-
+|Name| GitHub|Major|Year|
+|----|----|----|----|
+|💻 Aidan Jackson| [AidanJack](https://github.com/AidanJack)| Software Engineering|U3|
+|💻 Sandy Lao|  [sandyl289](https://github.com/sandyl289)|Software Engineering|U3|
 
 # Prerequisites ⚙
 - Java 18
