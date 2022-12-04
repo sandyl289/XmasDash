@@ -65,6 +65,10 @@ public class GamePanel extends JPanel implements Runnable{
 
         //Dino
         g2.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), this.player.getSizeDino(),this.player.getSizeDino(), null);
+        
+        //Landscape
+        this.landscape.moveLandscape(objSpeed);
+        this.landscape.paint(g2);
 
         //Score
         g2.setColor(Color.darkGray);
@@ -72,10 +76,6 @@ public class GamePanel extends JPanel implements Runnable{
         FontMetrics fontMetrics = g2.getFontMetrics();
         int scorePosX = WINDOW_WIDTH-fontMetrics.stringWidth(this.player.getScoreStr())-10;
         g2.drawString(this.player.getScoreStr(), scorePosX, 25);
-
-        //Landscape
-        this.landscape.moveLandscape(objSpeed);
-        this.landscape.paint(g2);
 
         g2.dispose();
     }
