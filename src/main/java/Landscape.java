@@ -1,8 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Landscape {
     private ArrayList<Ground> grounds;
