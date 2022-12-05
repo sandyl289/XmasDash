@@ -18,7 +18,6 @@ public class GamePanel extends JPanel implements Runnable{
 
     private final Player player;
     private final Landscape landscape;
-    private boolean paused;
 
     KeyHandler kh = new KeyHandler();
     private boolean gameover;
@@ -107,7 +106,7 @@ public class GamePanel extends JPanel implements Runnable{
                 // 16.67 ms for 60Hz game loop
                 // Everything else goes under this if
                 long curTime = System.currentTimeMillis();
-                if (curTime - this.prevTime < 16.67 || this.paused)
+                if (curTime - this.prevTime < 16.67)
                     continue;
                 this.player.increaseScore();
                 if(this.player.getScore() % 1000 == 0){
