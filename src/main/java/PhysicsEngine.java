@@ -2,6 +2,11 @@ public class PhysicsEngine {
 
     private static final float AMPLITUDE = 7f;
     private static final float STRETCH = 1.2f;
+
+    private PhysicsEngine() {  //Add private constructor to hide the implicit public one.
+        throw new IllegalStateException("Utility class");
+    }
+
     public static double moveWithForce(double radians, boolean jumping){
         if (!jumping) return 0;
         return AMPLITUDE * Math.cos(STRETCH * radians);
