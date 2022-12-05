@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePanel extends JPanel implements Runnable{
-
     static int WINDOW_WIDTH = 900; // Window Width
     static int WINDOW_HEIGHT = 700; // Window Height
     private final int OBSTACLE_SPAWN_POINT_Y = 400;
@@ -24,8 +23,6 @@ public class GamePanel extends JPanel implements Runnable{
     private boolean paused;
 
     KeyHandler KH = new KeyHandler();
-    private long prev_time_obstacle = 0;
-    private long cur_time_obstacle = 0;
     private boolean gameover;
 
     public GamePanel(){
@@ -91,10 +88,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        long prev_time_obstacle;
-        long cur_time_obstacle;
+        long prev_time_obstacle = 0;
+        long cur_time_obstacle = 0;
         // Game Loop
-        this.prev_time_obstacle = System.currentTimeMillis();
+        prev_time_obstacle = System.currentTimeMillis();
         while (true) {
             if (KH.rPressed && gameover){
                 repaint();
@@ -115,10 +112,10 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 if (this.player.getIsJumping()) jump();
                 
-                this.cur_time_obstacle = System.currentTimeMillis();
-                if (this.cur_time_obstacle - this.prev_time_obstacle >= (long) ThreadLocalRandom.current().nextInt(3000, 4500 + 1)){
+                cur_time_obstacle = System.currentTimeMillis();
+                if (cur_time_obstacle - prev_time_obstacle >= (long) ThreadLocalRandom.current().nextInt(3000, 4500 + 1)){
                     this.obsToSpawn.add(new Obstacle());
-                    this.prev_time_obstacle = this.cur_time_obstacle;
+                    prev_time_obstacle = cur_time_obstacle;
                 }
 
                 for (Obstacle o: this.activeObs){
@@ -168,11 +165,8 @@ public class GamePanel extends JPanel implements Runnable{
         this.player.resetScore();
         this.gameover = false;
         this.KH.rPressed = false;
-        this.prev_time_obstacle = 0;
-        this.cur_time_obstacle = 0;
     }
 }
-
 
 class Obstacle{
    public int x;
