@@ -94,10 +94,10 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        long prev_time_obstacle = 0;
-        long cur_time_obstacle = 0;
+        long prevTimeObstacle;
+        long curTimeObstacle;
         // Game Loop
-        prev_time_obstacle = System.currentTimeMillis();
+        prevTimeObstacle = System.currentTimeMillis();
         while (true) {
             if (kh.rPressed && gameover){
                 repaint();
@@ -129,10 +129,10 @@ public class GamePanel extends JPanel implements Runnable{
                 }
                 if (this.player.getIsJumping()) jump();
                 
-                cur_time_obstacle = System.currentTimeMillis();
-                if (cur_time_obstacle - prev_time_obstacle >= ThreadLocalRandom.current().nextInt(this.lowerSpawnRate, this.upperSpawnRate + 1)){
+                curTimeObstacle = System.currentTimeMillis();
+                if (curTimeObstacle - prevTimeObstacle >= ThreadLocalRandom.current().nextInt(this.lowerSpawnRate, this.upperSpawnRate + 1)){
                     this.obsToSpawn.add(new Obstacle());
-                    prev_time_obstacle = cur_time_obstacle;
+                    prevTimeObstacle = curTimeObstacle;
                 }
 
                 for (Obstacle o: this.activeObs){
