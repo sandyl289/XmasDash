@@ -11,6 +11,10 @@ public class MusicHelper {
     private static final String DEAD_SOUND_PATH = "src/files/zapsplat_cartoon_voice_high_pitched_says_ouch_001_15792.wav"; //Sound from Zapsplat.com
     private static final String GAME_OVER_PATH = "src/files/zapsplat_human_male_voice_says_game_over_001_15726.wav"; //Sound from Zapsplat.com
 
+    private MusicHelper() {  //Add private constructor to hide the implicit public one.
+        throw new IllegalStateException("Utility class");
+    }
+
     static void playBackgroundMusic() {
         File file = new File(MusicHelper.BGM_PATH);
         try {
