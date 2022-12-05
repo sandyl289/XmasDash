@@ -8,6 +8,7 @@ public class GamePanel extends JPanel implements Runnable{
     public static final String COURIER_NEW = "Courier New";
     static final int WINDOW_WIDTH = 900; // Window Width
     static final int WINDOW_HEIGHT = 700; // Window Height
+    private static final int OBSTACLE_SPAWN_POINT_Y = 400;
     ArrayList<Obstacle> activeObs = new ArrayList<>();
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
     ArrayList<Obstacle> obsToRemove = new ArrayList<>();
@@ -52,7 +53,6 @@ public class GamePanel extends JPanel implements Runnable{
             this.obsToRemove.add(o);
 
             o.x = WINDOW_WIDTH;
-            int OBSTACLE_SPAWN_POINT_Y = 400;
             o.y = OBSTACLE_SPAWN_POINT_Y;
             g2.drawImage(o.treeBufferedImg, o.x, o.y, 50, 50, null);
             this.activeObs.add(o);
