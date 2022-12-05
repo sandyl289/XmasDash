@@ -21,8 +21,6 @@ public class MusicHelper {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-            FloatControl gainControl =
-                    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             clip.start();
             clip.loop(clip.LOOP_CONTINUOUSLY);
         } catch (Exception e) {
