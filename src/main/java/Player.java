@@ -25,10 +25,12 @@ public class Player {
     }
     public void increaseScore() {
         this.score++;
-        if(this.score%500 == 0) MusicHelper.playSound(0);
     }
     public void resetScore(){
         this.score = 0;
+    }
+    public int getScore(){
+        return this.score;
     }
 
     public int getPosX() {

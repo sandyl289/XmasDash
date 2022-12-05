@@ -20,6 +20,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     KeyHandler KH = new KeyHandler();
     private boolean gameover;
+    private int level;
+    private int lowerSpawnRate;
+    private int upperSpawnRate;
 
     public GamePanel(){
 
@@ -33,6 +36,9 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
         this.obsToSpawn.add(obstacle);
         this.gameover = false;
+        this.level = 1;
+        this.lowerSpawnRate = 2000;
+        this.upperSpawnRate = 3500;
         Thread gameThread = new Thread(this);
         gameThread.start();
     }
@@ -71,6 +77,17 @@ public class GamePanel extends JPanel implements Runnable{
         FontMetrics fontMetrics = g2.getFontMetrics();
         int scorePosX = WINDOW_WIDTH-fontMetrics.stringWidth(this.player.getScoreStr())-10;
         g2.drawString(this.player.getScoreStr(), scorePosX, 25);
+        g2.setFont(new Font("Courier New", Font.BOLD, 20));
+        g2.drawString("Space to Jump", scorePosX - 40, 45);
+        g2.drawString("P to pause", scorePosX - 40, 65);
+
+        if (this.gameover){
+            g2.setFont(new Font("Courier New", Font.BOLD, 60));
+            g2.drawString("GAME OVER!", WINDOW_WIDTH/2 - fontMetrics.stringWidth("GAME OVER!"), WINDOW_HEIGHT/2);
+            g2.setFont(new Font("Courier New", Font.BOLD, 20));
+            g2.drawString("Press R to restart", WINDOW_WIDTH/2 - fontMetrics.stringWidth("Press R to restart")/3, WINDOW_HEIGHT/2 + 40);
+            MusicHelper.playSound(3);
+        }
 
         if (this.gameover){
             g2.setFont(new Font("Courier New", Font.BOLD, 60));
@@ -101,6 +118,17 @@ public class GamePanel extends JPanel implements Runnable{
                 if (cur_time - this.prev_time < 16.67 || this.paused)
                     continue;
                 this.player.increaseScore();
+                if(this.player.getScore() % 1000 == 0){
+                    MusicHelper.playSound(0);
+                    this.level++;
+                }
+                else if(this.player.getScore() % 500 == 0){
+                    MusicHelper.playSound(0);
+                    if (this.lowerSpawnRate >= 600 && this.upperSpawnRate > this.lowerSpawnRate){
+                        this.lowerSpawnRate -= 400;
+                        this.upperSpawnRate -= 500;
+                    }
+                }
     
                 if (KH.spacePressed && KH.spacereleased && !this.player.getIsJumping()){
                     this.jumpStartTime = 0;
@@ -110,26 +138,18 @@ public class GamePanel extends JPanel implements Runnable{
                 if (this.player.getIsJumping()) jump();
                 
                 cur_time_obstacle = System.currentTimeMillis();
-                if (cur_time_obstacle - prev_time_obstacle >= (long) ThreadLocalRandom.current().nextInt(3000, 4500 + 1)){
+                if (cur_time_obstacle - prev_time_obstacle >= (long) ThreadLocalRandom.current().nextInt(this.lowerSpawnRate, this.upperSpawnRate + 1)){
                     this.obsToSpawn.add(new Obstacle());
                     prev_time_obstacle = cur_time_obstacle;
                 }
 
                 for (Obstacle o: this.activeObs){
-                    o.x -= this.objSpeed;
+                    o.x -= this.objSpeed * this.level;
                     if (o.x + 50 <= 0){
                         this.obsToRemove.add(o);
                         continue;
                     }
-                    if (PhysicsEngine.detectCollision(
-                        (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY(),
-                      (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
-                      (float) o.x + 15f, (float) o.y,
-                      (float) o.x + 14.8f, (float) o.y + 50))
-                      {
-                        MusicHelper.playSound(2);
-                        this.gameover = true;     
-                    }
+                    checkCollisions(o);
                 }
                 this.activeObs.removeAll(this.obsToRemove);
                 this.obsToRemove.removeAll(obsToRemove);
@@ -162,8 +182,33 @@ public class GamePanel extends JPanel implements Runnable{
         this.player.resetScore();
         this.gameover = false;
         this.KH.rPressed = false;
+        this.level = 1;
+        this.lowerSpawnRate = 2000;
+        this.upperSpawnRate = 3500;
+    }
+
+    private void checkCollisions(Obstacle o){
+        if (PhysicsEngine.detectCollision(
+            (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY(),
+          (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
+          (float) o.x + 15f, (float) o.y,
+          (float) o.x + 14.8f, (float) o.y + 50))
+          {
+            MusicHelper.playSound(2);
+            this.gameover = true;     
+        }
+        else if(PhysicsEngine.detectCollision(
+            (float) this.player.getPosX() + 15f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
+          (float) this.player.getPosX() - 15f + (float) Player.SIZE_DINO , (float) this.player.getPosY() + (float) Player.SIZE_DINO - 0.5f,
+          (float) o.x + 15f, (float) o.y,
+          (float) o.x + 14.8f, (float) o.y + 50))
+          {
+            MusicHelper.playSound(2);
+            this.gameover = true;     
+        }
     }
 }
+
 
 class Obstacle{
    public int x;
