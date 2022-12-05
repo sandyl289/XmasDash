@@ -1,5 +1,5 @@
 # ECSE 437 Software Delivery Final Project
-
+[![Java CI with Maven](https://github.com/sandyl289/XmasDash/actions/workflows/maven.yml/badge.svg)](https://github.com/sandyl289/XmasDash/actions/workflows/maven.yml)
 # XmasDash 🎄💨
 
 Project inspired by [Dino T-Rex (Chrome Dino)](https://dino-chrome.com/en) game.
