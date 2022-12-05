@@ -2,7 +2,7 @@ import java.awt.image.BufferedImage;
 
 public class Player {
     private int score = 0;
-    private final static int POS_X = 20;
+    private static final  int POS_X = 20;
     private int posY;
     private final BufferedImage dino1BufferedImage;
     public static final int SIZE_DINO = 70;
