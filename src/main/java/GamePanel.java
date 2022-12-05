@@ -7,18 +7,14 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GamePanel extends JPanel implements Runnable{
     static int WINDOW_WIDTH = 900; // Window Width
     static int WINDOW_HEIGHT = 700; // Window Height
-    private final int OBSTACLE_SPAWN_POINT_Y = 400;
     ArrayList<Obstacle> activeObs = new ArrayList<>();
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
     ArrayList<Obstacle> obsToRemove = new ArrayList<>();
     private final int objSpeed = 3;  //Speed of objects
     private long prev_time;
-    private long cur_time;
     private double jumpStartTime = 0;
-    private double curRelativeLocation = 0;
-    
+
     private final Player player;
-    private final Obstacle obstacle;
     private final Landscape landscape;
     private boolean paused;
 
@@ -28,14 +24,14 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel(){
 
         this.player = new Player();
-        this.obstacle = new Obstacle();
+        Obstacle obstacle = new Obstacle();
         this.landscape = new Landscape();
         this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         this.setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
         this.addKeyListener(KH);
         this.setFocusable(true);
-        this.obsToSpawn.add(this.obstacle);
+        this.obsToSpawn.add(obstacle);
         this.gameover = false;
         Thread gameThread = new Thread(this);
         gameThread.start();
@@ -50,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable{
             this.obsToRemove.add(o);
 
             o.x = WINDOW_WIDTH;
+            int OBSTACLE_SPAWN_POINT_Y = 400;
             o.y = OBSTACLE_SPAWN_POINT_Y;
             g2.drawImage(o.treeBufferedImg, o.x, o.y, 50, 50, null);
             this.activeObs.add(o);
@@ -100,8 +97,8 @@ public class GamePanel extends JPanel implements Runnable{
             if (!KH.pPressed && !gameover){ 
                 // 16.67 ms for 60Hz game loop
                 // Everything else goes under this if
-                this.cur_time = System.currentTimeMillis();
-                if (this.cur_time - this.prev_time < 16.67 || this.paused)
+                long cur_time = System.currentTimeMillis();
+                if (cur_time - this.prev_time < 16.67 || this.paused)
                     continue;
                 this.player.increaseScore();
     
@@ -137,16 +134,16 @@ public class GamePanel extends JPanel implements Runnable{
                 this.activeObs.removeAll(this.obsToRemove);
                 this.obsToRemove.removeAll(obsToRemove);
                 repaint();
-                this.prev_time = this.cur_time;
+                this.prev_time = cur_time;
             }
         }
     }
 
     private void jump(){  
         this.jumpStartTime += 0.05;
-        this.curRelativeLocation = PhysicsEngine.moveWithForce(jumpStartTime, this.player.getIsJumping());
+        double curRelativeLocation = PhysicsEngine.moveWithForce(jumpStartTime, this.player.getIsJumping());
 
-        int temp = (this.player.getPosY() + -1 * (int) Math.ceil(this.curRelativeLocation));
+        int temp = (this.player.getPosY() + -1 * (int) Math.ceil(curRelativeLocation));
         if (temp > Player.INITIAL_Y_POS-2){
             this.player.setPosY(Player.INITIAL_Y_POS);
             this.player.setIsJumping(false);
