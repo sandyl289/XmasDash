@@ -131,7 +131,7 @@ public class GamePanel extends JPanel implements Runnable{
                 if (this.player.getIsJumping()) jump();
                 
                 cur_time_obstacle = System.currentTimeMillis();
-                if (cur_time_obstacle - prev_time_obstacle >= (long) ThreadLocalRandom.current().nextInt(this.lowerSpawnRate, this.upperSpawnRate + 1)){
+                if (cur_time_obstacle - prev_time_obstacle >= ThreadLocalRandom.current().nextInt(this.lowerSpawnRate, this.upperSpawnRate + 1)){
                     this.obsToSpawn.add(new Obstacle());
                     prev_time_obstacle = cur_time_obstacle;
                 }
