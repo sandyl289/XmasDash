@@ -21,8 +21,7 @@ public class Player {
     }
 
     public String getScoreStr(){
-        String scoreStr = this.score + " pts";
-        return scoreStr;
+        return this.score + " pts";
     }
     public void increaseScore() {
         this.score++;
