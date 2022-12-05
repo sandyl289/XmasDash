@@ -6,12 +6,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePanel extends JPanel implements Runnable{
     public static final String COURIER_NEW = "Courier New";
-    static int WINDOW_WIDTH = 900; // Window Width
-    static int WINDOW_HEIGHT = 700; // Window Height
+    static final int WINDOW_WIDTH = 900; // Window Width
+    static final int WINDOW_HEIGHT = 700; // Window Height
     ArrayList<Obstacle> activeObs = new ArrayList<>();
     ArrayList<Obstacle> obsToSpawn = new ArrayList<>();
     ArrayList<Obstacle> obsToRemove = new ArrayList<>();
-    private final int objSpeed = 3;  //Speed of objects
+    private static final int OBJECT_SPEED = 3;  //Speed of objects
     private long prev_time;
     private double jumpStartTime = 0;
 
@@ -26,7 +26,6 @@ public class GamePanel extends JPanel implements Runnable{
     private int upperSpawnRate;
 
     public GamePanel(){
-
         this.player = new Player();
         Obstacle obstacle = new Obstacle();
         this.landscape = new Landscape();
@@ -69,7 +68,7 @@ public class GamePanel extends JPanel implements Runnable{
         g2.drawImage(this.player.getDino1BufferedImage(), this.player.getPosX(),this.player.getPosY(), Player.SIZE_DINO,Player.SIZE_DINO, null);
         
         //Landscape
-        this.landscape.moveLandscape(objSpeed);
+        this.landscape.moveLandscape(OBJECT_SPEED);
         this.landscape.paint(g2);
 
         //Score
@@ -137,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable{
                 }
 
                 for (Obstacle o: this.activeObs){
-                    o.x -= this.objSpeed * this.level;
+                    o.x -= this.OBJECT_SPEED * this.level;
                     if (o.x + 50 <= 0){
                         this.obsToRemove.add(o);
                         continue;
@@ -160,8 +159,7 @@ public class GamePanel extends JPanel implements Runnable{
         if (temp > Player.INITIAL_Y_POS-2){
             this.player.setPosY(Player.INITIAL_Y_POS);
             this.player.setIsJumping(false);
-        }
-        else{
+        } else{
             this.player.setPosY(temp);
         }
     }
@@ -182,16 +180,16 @@ public class GamePanel extends JPanel implements Runnable{
 
     private void checkCollisions(Obstacle o){
         final boolean detectCollision1 = PhysicsEngine.detectCollision(
-                (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY(),
+                (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, this.player.getPosY(),
                 (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
-                (float) o.x + 15f, (float) o.y,
-                (float) o.x + 14.8f, (float) o.y + 50);
+                o.x + 15f, o.y,
+                o.x + 14.8f, (float) o.y + 50);
 
         final boolean detectCollision2 = PhysicsEngine.detectCollision(
-                (float) this.player.getPosX() + 15f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
-                (float) this.player.getPosX() - 15f + (float) Player.SIZE_DINO, (float) this.player.getPosY() + (float) Player.SIZE_DINO - 0.5f,
-                (float) o.x + 15f, (float) o.y,
-                (float) o.x + 14.8f, (float) o.y + 50);
+                this.player.getPosX() + 15f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
+                this.player.getPosX() - 15f + Player.SIZE_DINO, (float) this.player.getPosY() + (float) Player.SIZE_DINO - 0.5f,
+                o.x + 15f, o.y,
+                o.x + 14.8f, (float) o.y + 50);
         if (detectCollision1 || detectCollision2){
             MusicHelper.playSound(2);
             this.gameover = true;     
