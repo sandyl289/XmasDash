@@ -106,8 +106,8 @@ public class GamePanel extends JPanel implements Runnable{
             if (!kh.pPressed && !gameover){
                 // 16.67 ms for 60Hz game loop
                 // Everything else goes under this if
-                long cur_time = System.currentTimeMillis();
-                if (cur_time - this.prevTime < 16.67 || this.paused)
+                long curTime = System.currentTimeMillis();
+                if (curTime - this.prevTime < 16.67 || this.paused)
                     continue;
                 this.player.increaseScore();
                 if(this.player.getScore() % 1000 == 0){
@@ -146,7 +146,7 @@ public class GamePanel extends JPanel implements Runnable{
                 this.activeObs.removeAll(this.obsToRemove);
                 this.obsToRemove.removeAll(obsToRemove);
                 repaint();
-                this.prevTime = cur_time;
+                this.prevTime = curTime;
             }
         }
     }
