@@ -181,21 +181,18 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     private void checkCollisions(Obstacle o){
-        if (PhysicsEngine.detectCollision(
-            (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY(),
-          (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
-          (float) o.x + 15f, (float) o.y,
-          (float) o.x + 14.8f, (float) o.y + 50))
-          {
-            MusicHelper.playSound(2);
-            this.gameover = true;     
-        }
-        else if(PhysicsEngine.detectCollision(
-            (float) this.player.getPosX() + 15f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
-          (float) this.player.getPosX() - 15f + (float) Player.SIZE_DINO , (float) this.player.getPosY() + (float) Player.SIZE_DINO - 0.5f,
-          (float) o.x + 15f, (float) o.y,
-          (float) o.x + 14.8f, (float) o.y + 50))
-          {
+        final boolean detectCollision1 = PhysicsEngine.detectCollision(
+                (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY(),
+                (float) this.player.getPosX() + (float) Player.SIZE_DINO - 15.0f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
+                (float) o.x + 15f, (float) o.y,
+                (float) o.x + 14.8f, (float) o.y + 50);
+
+        final boolean detectCollision2 = PhysicsEngine.detectCollision(
+                (float) this.player.getPosX() + 15f, (float) this.player.getPosY() + (float) Player.SIZE_DINO,
+                (float) this.player.getPosX() - 15f + (float) Player.SIZE_DINO, (float) this.player.getPosY() + (float) Player.SIZE_DINO - 0.5f,
+                (float) o.x + 15f, (float) o.y,
+                (float) o.x + 14.8f, (float) o.y + 50);
+        if (detectCollision1 || detectCollision2){
             MusicHelper.playSound(2);
             this.gameover = true;     
         }
