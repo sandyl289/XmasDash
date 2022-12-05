@@ -5,13 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PhysicsEngineTest {
     
 
-    @BeforeEach
-    void setup() {
-    }
-
-    @AfterEach
-    void teardown() {
-    }
 
     @Test
     void testDetectCollisionValid(){
