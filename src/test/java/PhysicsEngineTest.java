@@ -23,12 +23,12 @@ public class PhysicsEngineTest {
     }
     @Test
     void testMoveWithForceWhileJumping(){
-        assertEquals((double) 0, PhysicsEngine.moveWithForce(0.2, true));
+        assertEquals((double) 0, PhysicsEngine.moveWithForce(0.2, false));
     }
     @Test
     void testMoveWithForce(){
         double radians = 0.2;
-        assertEquals(7 * Math.cos(1.2 * radians), PhysicsEngine.moveWithForce(radians, false));
+        assertEquals(7.0f * Math.cos(1.2f * radians), PhysicsEngine.moveWithForce(radians, true));
     }
 
 }
