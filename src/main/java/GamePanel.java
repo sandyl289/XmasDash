@@ -96,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
         long prevTimeObstacle;
         long curTimeObstacle;
         // Game Loop
+
         prevTimeObstacle = System.currentTimeMillis();
         while (true) {
             if (kh.rPressed && gameover){

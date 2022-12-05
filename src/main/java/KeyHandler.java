@@ -10,7 +10,6 @@ public class KeyHandler implements KeyListener{
     public boolean pPressed = false;
     private boolean pReleased = true;
 
-
     @Override
     public void keyTyped(KeyEvent e) {
         // Empty because must have abstract method 'keyTyped(KeyEvent)' in 'KeyListener'
