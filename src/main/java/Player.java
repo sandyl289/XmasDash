@@ -2,16 +2,16 @@ import java.awt.image.BufferedImage;
 
 public class Player {
     private int score = 0;
-    private int posX = 20;
+    private final int posX = 20;
     private int posY;
-    private String pathDinoImg = "src/files/dino1.png";
-    private BufferedImage dino1BufferedImage;
+    private final BufferedImage dino1BufferedImage;
     public static final int SIZE_DINO = 70;
     public static final int INITIAL_Y_POS = 382;
     private boolean isJumping = false;
 
     Player(){
         ImageHelper imageHelper = new ImageHelper();
+        String pathDinoImg = "src/files/dino1.png";
         this.dino1BufferedImage = imageHelper.getBufferedImg(pathDinoImg);
         this.posY = INITIAL_Y_POS;
     }
