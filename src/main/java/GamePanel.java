@@ -90,14 +90,6 @@ public class GamePanel extends JPanel implements Runnable{
             MusicHelper.playSound(3);
         }
 
-        if (this.gameover){
-            g2.setFont(new Font(COURIER_NEW, Font.BOLD, 60));
-            g2.drawString("GAME OVER!!!", WINDOW_WIDTH/2 - fontMetrics.stringWidth("GAME OVER!"), WINDOW_HEIGHT/2);
-            g2.setFont(new Font(COURIER_NEW, Font.BOLD, 20));
-            g2.drawString("Press R to restart", WINDOW_WIDTH/2 - fontMetrics.stringWidth("Press R to restart")/3, WINDOW_HEIGHT/2 + 40);
-            MusicHelper.playSound(3);
-        }
-
         g2.dispose();
     }
 
