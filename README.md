@@ -1,12 +1,13 @@
 # ECSE 437 Software Delivery Final Project
-
+[![Java CI with Maven](https://github.com/sandyl289/XmasDash/actions/workflows/maven.yml/badge.svg)](https://github.com/sandyl289/XmasDash/actions/workflows/maven.yml)
 # XmasDash 🎄💨
 
 Project inspired by [Dino T-Rex (Chrome Dino)](https://dino-chrome.com/en) game.
 
 # How to Play 🎮
-Use the space bar to make the dino jump. The goal is to jump over all the Christmas trees 🎄.
-
+Use the `space bar` to make the dino jump. The goal is to jump over all the Christmas trees 🎄.
+- Press `R` key to restart the game
+- Press `P` key to pause
 # Developers 👋
 |Name| GitHub|Major|Year|
 |----|----|----|----|
@@ -34,6 +35,7 @@ or open `XmasDash.jar` from Finder (Mac) / File Explorer (Windows)
 OR   
 - On an IDE, right click on the `src/test/java` folder and click on "Run".
 
+Note: We are not testing helper classes (`ImageHelper`, `KeyHandler`, `MusicHelper`) and some UI functions such as `paint(Graphics2D g2)` in `Landcape`. We are also not testing functions in `GamePanel`
 # Jacoco Report
 - On a terminal, run `mvn clean test jacoco:report`  
   On IntelliJ IDE, click on the `target/site/jacoco/index.html` file
