@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GamePanel extends JPanel implements Runnable{
+    public static final String COURIER_NEW = "Courier New";
     static int WINDOW_WIDTH = 900; // Window Width
     static int WINDOW_HEIGHT = 700; // Window Height
     ArrayList<Obstacle> activeObs = new ArrayList<>();
@@ -73,26 +74,26 @@ public class GamePanel extends JPanel implements Runnable{
 
         //Score
         g2.setColor(Color.darkGray);
-        g2.setFont(new Font("Courier New", Font.BOLD, 30));
+        g2.setFont(new Font(COURIER_NEW, Font.BOLD, 30));
         FontMetrics fontMetrics = g2.getFontMetrics();
         int scorePosX = WINDOW_WIDTH-fontMetrics.stringWidth(this.player.getScoreStr())-10;
         g2.drawString(this.player.getScoreStr(), scorePosX, 25);
-        g2.setFont(new Font("Courier New", Font.BOLD, 20));
+        g2.setFont(new Font(COURIER_NEW, Font.BOLD, 20));
         g2.drawString("Space to Jump", scorePosX - 40, 45);
         g2.drawString("P to pause", scorePosX - 40, 65);
 
         if (this.gameover){
-            g2.setFont(new Font("Courier New", Font.BOLD, 60));
+            g2.setFont(new Font(COURIER_NEW, Font.BOLD, 60));
             g2.drawString("GAME OVER!", WINDOW_WIDTH/2 - fontMetrics.stringWidth("GAME OVER!"), WINDOW_HEIGHT/2);
-            g2.setFont(new Font("Courier New", Font.BOLD, 20));
+            g2.setFont(new Font(COURIER_NEW, Font.BOLD, 20));
             g2.drawString("Press R to restart", WINDOW_WIDTH/2 - fontMetrics.stringWidth("Press R to restart")/3, WINDOW_HEIGHT/2 + 40);
             MusicHelper.playSound(3);
         }
 
         if (this.gameover){
-            g2.setFont(new Font("Courier New", Font.BOLD, 60));
+            g2.setFont(new Font(COURIER_NEW, Font.BOLD, 60));
             g2.drawString("GAME OVER!!!", WINDOW_WIDTH/2 - fontMetrics.stringWidth("GAME OVER!"), WINDOW_HEIGHT/2);
-            g2.setFont(new Font("Courier New", Font.BOLD, 20));
+            g2.setFont(new Font(COURIER_NEW, Font.BOLD, 20));
             g2.drawString("Press R to restart", WINDOW_WIDTH/2 - fontMetrics.stringWidth("Press R to restart")/3, WINDOW_HEIGHT/2 + 40);
             MusicHelper.playSound(3);
         }
