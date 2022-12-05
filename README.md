@@ -33,3 +33,8 @@ or open `XmasDash.jar` from Finder (Mac) / File Explorer (Windows)
 - On a terminal, run `mvn clean test`   
 OR   
 - On an IDE, right click on the `src/test/java` folder and click on "Run".
+
+# Jacoco Report
+- On a terminal, run `mvn clean test jacoco:report`  
+  On IntelliJ IDE, click on the `target/site/jacoco/index.html` file
+- Click on one of the browser icons to open the Jacoco Report
