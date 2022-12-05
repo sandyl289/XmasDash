@@ -1,7 +1,7 @@
 public class Cloud {
-    private int x = 0;
-    private int y = 450;
-    public static int SIZE = 70;
+    private int x;
+    private final int y;
+    public static final int SIZE = 70;
     public int getX() {
         return x;
     }
@@ -15,9 +15,5 @@ public class Cloud {
     }
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 }

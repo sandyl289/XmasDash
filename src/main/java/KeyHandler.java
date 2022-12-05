@@ -1,9 +1,6 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.text.html.HTMLDocument.HTMLReader.PreAction;
-
-
 public class KeyHandler implements KeyListener{
 
     public boolean spacePressed = false;
@@ -12,9 +9,10 @@ public class KeyHandler implements KeyListener{
     public boolean rReleased = true;
     public boolean pPressed = false;
     private boolean pReleased = true;
+
     @Override
     public void keyTyped(KeyEvent e) {
-        
+        // Empty because must have abstract method 'keyTyped(KeyEvent)' in 'KeyListener'
     }
 
     @Override
@@ -27,22 +25,12 @@ public class KeyHandler implements KeyListener{
 
         if(key == KeyEvent.VK_R && rReleased){
             rReleased = false;
-            if (rPressed == true){
-                rPressed = false;
-            }
-            else{
-                rPressed = true;
-            }
+            rPressed = !rPressed;
         }
 
         if (key == KeyEvent.VK_P && pReleased){
             pReleased = false;
-            if (pPressed == true){
-                pPressed = false;
-            }
-            else{
-                pPressed = true;
-            }
+            pPressed = !pPressed;
         }
     }
 

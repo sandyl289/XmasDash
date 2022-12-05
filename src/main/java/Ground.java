@@ -1,7 +1,7 @@
 public class Ground {
     private int x = 0;
-    public static int Y = 450;
-    public static int SIZE = 50;
+    public static final int Y = 450;
+    public static final int SIZE = 50;
 
     public int getX() {
         return x;

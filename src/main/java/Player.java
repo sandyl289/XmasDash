@@ -2,23 +2,18 @@ import java.awt.image.BufferedImage;
 
 public class Player {
     private int score = 0;
-    private int posX = 20;
+    private static final  int POS_X = 20;
     private int posY;
-    private String pathDinoImg = "src/files/dino1.png";
-    private BufferedImage dino1BufferedImage;
-    private final int SIZE_DINO = 70;
+    private final BufferedImage dino1BufferedImage;
+    public static final int SIZE_DINO = 70;
     public static final int INITIAL_Y_POS = 382;
     private boolean isJumping = false;
-    private MusicHelper musicHelper;
 
     Player(){
         ImageHelper imageHelper = new ImageHelper();
+        String pathDinoImg = "src/files/dino1.png";
         this.dino1BufferedImage = imageHelper.getBufferedImg(pathDinoImg);
         this.posY = INITIAL_Y_POS;
-        this.musicHelper = new MusicHelper();
-    }
-    public int getSizeDino() {
-        return SIZE_DINO;
     }
 
     public BufferedImage getDino1BufferedImage() {
@@ -26,8 +21,7 @@ public class Player {
     }
 
     public String getScoreStr(){
-        String scoreStr = this.score + " pts";
-        return scoreStr;
+        return this.score + " pts";
     }
     public void increaseScore() {
         this.score++;
@@ -40,7 +34,7 @@ public class Player {
     }
 
     public int getPosX() {
-        return posX;
+        return POS_X;
     }
 
     public int getPosY() {
