@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
     private final Landscape landscape;
     private boolean paused;
 
-    KeyHandler KH = new KeyHandler();
+    KeyHandler kh = new KeyHandler();
     private boolean gameover;
     private int level;
     private int lowerSpawnRate;
@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         this.setBackground(Color.WHITE);
         this.setDoubleBuffered(true);
-        this.addKeyListener(KH);
+        this.addKeyListener(kh);
         this.setFocusable(true);
         this.obsToSpawn.add(obstacle);
         this.gameover = false;
@@ -99,11 +99,11 @@ public class GamePanel extends JPanel implements Runnable{
         // Game Loop
         prev_time_obstacle = System.currentTimeMillis();
         while (true) {
-            if (KH.rPressed && gameover){
+            if (kh.rPressed && gameover){
                 repaint();
                 reset();
             }
-            if (!KH.pPressed && !gameover){ 
+            if (!kh.pPressed && !gameover){
                 // 16.67 ms for 60Hz game loop
                 // Everything else goes under this if
                 long cur_time = System.currentTimeMillis();
@@ -122,7 +122,7 @@ public class GamePanel extends JPanel implements Runnable{
                     }
                 }
     
-                if (KH.spacePressed && KH.spacereleased && !this.player.getIsJumping()){
+                if (kh.spacePressed && kh.spacereleased && !this.player.getIsJumping()){
                     this.jumpStartTime = 0;
                     this.player.setIsJumping(true);
                     MusicHelper.playSound(1);
@@ -172,7 +172,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.obsToRemove.removeAll(this.obsToRemove);
         this.player.resetScore();
         this.gameover = false;
-        this.KH.rPressed = false;
+        this.kh.rPressed = false;
         this.level = 1;
         this.lowerSpawnRate = 2000;
         this.upperSpawnRate = 3500;
