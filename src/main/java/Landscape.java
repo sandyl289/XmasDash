@@ -61,5 +61,10 @@ public class Landscape {
             cloud.setX(x);
         }
     }
+
+    public ArrayList<Cloud> getClouds() {
+        return clouds;
+    }
+
 }
 
