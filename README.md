@@ -5,8 +5,9 @@
 Project inspired by [Dino T-Rex (Chrome Dino)](https://dino-chrome.com/en) game.
 
 # How to Play 🎮
-Use the space bar to make the dino jump. The goal is to jump over all the Christmas trees 🎄.
-
+Use the `space bar` to make the dino jump. The goal is to jump over all the Christmas trees 🎄.
+- Press `R` key to restart the game
+- Press `P` key to pause
 # Developers 👋
 |Name| GitHub|Major|Year|
 |----|----|----|----|
