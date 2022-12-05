@@ -3,11 +3,11 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Landscape {
-    private ArrayList<Ground> grounds;
-    private ArrayList<Cloud> clouds;
-    private BufferedImage GROUND_BUFFERED_IMG;
-    private BufferedImage MUD_BUFFERED_IMG;
-    private BufferedImage CLOUD_BUFFERED_IMG;
+    private final ArrayList<Ground> grounds;
+    private final ArrayList<Cloud> clouds;
+    private final BufferedImage GROUND_BUFFERED_IMG;
+    private final BufferedImage MUD_BUFFERED_IMG;
+    private final BufferedImage CLOUD_BUFFERED_IMG;
     int lastGroundPosX;
     Landscape() {
         ImageHelper imageHelper = new ImageHelper();
