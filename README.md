@@ -32,15 +32,15 @@ java -jar target/XmasDash.jar
 ``` 
 or open `XmasDash.jar` from Finder (Mac) / File Explorer (Windows)
 
-Note: `XmasDash.jar` can be downloded from the `executable` folder.
+Note: `XmasDash.jar` can be downloaded from the `executable` folder or click [here](https://github.com/sandyl289/XmasDash/raw/main/Executable/XmasDash.jar)
 
 # Running the Tests 🧪
 - On a terminal, run `mvn clean test`   
 OR   
 - On an IDE, right click on the `src/test/java` folder and click on "Run".
 
-Note: We are not testing `Main` class, helper classes (`ImageHelper`, `KeyHandler`, `MusicHelper`) and some UI functions such as `paint(Graphics2D g2)` in `Landcape`. We are also not testing functions in `GamePanel`
-# Jacoco Report
+Note: We are not testing `Main` and `Obstacle` classes, helper classes (`ImageHelper`, `KeyHandler`, `MusicHelper`) and some UI functions such as `paint(Graphics2D g2)` in `Landscape`. We are also not testing functions in `GamePanel`
+# Jacoco Report 📃
 - On a terminal, run `mvn clean test jacoco:report`  
   On IntelliJ IDE, click on the `target/site/jacoco/index.html` file
 - Click on one of the browser icons to open the Jacoco Report
