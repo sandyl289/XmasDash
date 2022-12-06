@@ -2,18 +2,25 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+
 public class Landscape {
     private final ArrayList<Ground> grounds;
     private final ArrayList<Cloud> clouds;
-    private final BufferedImage groundBufferedImg;
-    private final BufferedImage mudBufferedImg;
-    private final BufferedImage cloudBufferedImg;
+    private BufferedImage groundBufferedImg;
+    private BufferedImage mudBufferedImg;
+    private BufferedImage cloudBufferedImg;
     int lastGroundPosX;
     Landscape() {
         ImageHelper imageHelper = new ImageHelper();
-        this.groundBufferedImg = imageHelper.getBufferedImg("src/files/ground.png");
-        this.mudBufferedImg = imageHelper.getBufferedImg("src/files/mud.png");
-        this.cloudBufferedImg = imageHelper.getBufferedImg("src/files/cloud.png");
+        try{
+            this.groundBufferedImg = ImageIO.read(Landscape.class.getResource("ground.png"));
+            this.mudBufferedImg = ImageIO.read(Landscape.class.getResource("mud.png"));
+            this.cloudBufferedImg = ImageIO.read(Landscape.class.getResource("cloud.png"));
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
 
        //Ground
         this.grounds = new ArrayList<>();

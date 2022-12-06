@@ -1,24 +1,26 @@
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
-import java.io.File;
+import java.net.URL;
 
 public class MusicHelper {
-    private static final String BGM_PATH = "src/files/music_zapsplat_christmas_funk.wav"; //Sound from Zapsplat.com
-    private static final String SCORE_SOUND_PATH = "src/files/zapsplat_multimedia_beep_bright_87460.wav"; //Sound from Zapsplat.com
-    private static final String JUMP_SOUND_PATH = "src/files/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_002_78374.wav"; //Sound from Zapsplat.com
-    private static final String DEAD_SOUND_PATH = "src/files/zapsplat_cartoon_voice_high_pitched_says_ouch_001_15792.wav"; //Sound from Zapsplat.com
-    private static final String GAME_OVER_PATH = "src/files/zapsplat_human_male_voice_says_game_over_001_15726.wav"; //Sound from Zapsplat.com
+
+    private static final URL BGM_PATH = MusicHelper.class.getResource("music_zapsplat_christmas_funk.wav");
+
+    private static final URL SCORE_SOUND_PATH = MusicHelper.class.getResource("zapsplat_multimedia_beep_bright_87460.wav"); //Sound from Zapsplat.com
+    private static final URL JUMP_SOUND_PATH = MusicHelper.class.getResource("zapsplat_cartoon_voice_high_pitched_says_ouch_001_15792.wav"); //Sound from Zapsplat.com
+    private static final URL DEAD_SOUND_PATH = MusicHelper.class.getResource("zapsplat_cartoon_voice_high_pitched_says_ouch_001_15792.wav"); //Sound from Zapsplat.com
+    private static final URL GAME_OVER_PATH = MusicHelper.class.getResource("zapsplat_human_male_voice_says_game_over_001_15726.wav"); //Sound from Zapsplat.com
 
     private MusicHelper() {  //Add private constructor to hide the implicit public one.
         throw new IllegalStateException("Utility class");
     }
 
     static void playBackgroundMusic() {
-        File file = new File(MusicHelper.BGM_PATH);
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(BGM_PATH);
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
@@ -33,16 +35,16 @@ public class MusicHelper {
      * @param option: int (0 = SCORE sound; 1 = JUMP sound; 2 = DEAD sound; other = GAME OVER sound
      */
     static void playSound(int option){
-        File file;
+        URL file;
 
         if(option == 0){
-            file = new File(SCORE_SOUND_PATH);
+            file = SCORE_SOUND_PATH;
         } else if (option == 1){
-            file = new File(JUMP_SOUND_PATH);
+            file = JUMP_SOUND_PATH;
         } else if (option == 2){
-            file = new File(DEAD_SOUND_PATH);
+            file = DEAD_SOUND_PATH;
         } else {
-            file = new File(GAME_OVER_PATH);
+            file = GAME_OVER_PATH;
         }
 
         try {

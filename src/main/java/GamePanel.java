@@ -204,6 +204,6 @@ class Obstacle{
    public BufferedImage treeBufferedImg;
    Obstacle(){
        ImageHelper imageHelper = new ImageHelper();
-       this.treeBufferedImg = imageHelper.getBufferedImg("src/files/tree.png");
+       this.treeBufferedImg = imageHelper.getBufferedImg("tree.png");
    }
 }
