@@ -1,5 +1,6 @@
 # ECSE 437 Software Delivery Final Project
 [![Java CI with Maven](https://github.com/sandyl289/XmasDash/actions/workflows/maven.yml/badge.svg)](https://github.com/sandyl289/XmasDash/actions/workflows/maven.yml)
+
 # XmasDash 🎄💨
 
 Project inspired by [Dino T-Rex (Chrome Dino)](https://dino-chrome.com/en) game.
@@ -8,6 +9,7 @@ Project inspired by [Dino T-Rex (Chrome Dino)](https://dino-chrome.com/en) game.
 Use the `space bar` to make the dino jump. The goal is to jump over all the Christmas trees 🎄.
 - Press `R` key to restart the game
 - Press `P` key to pause
+
 # Developers 👋
 |Name| GitHub|Major|Year|
 |----|----|----|----|
@@ -29,6 +31,8 @@ mvn clean package
 java -jar target/XmasDash.jar
 ``` 
 or open `XmasDash.jar` from Finder (Mac) / File Explorer (Windows)
+
+Note: `XmasDash.jar` can be downloded from the `executable` folder.
 
 # Running the Tests 🧪
 - On a terminal, run `mvn clean test`   
