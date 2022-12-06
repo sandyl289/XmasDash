@@ -10,7 +10,7 @@ public class MusicHelper {
     private static final URL BGM_PATH = MusicHelper.class.getResource("music_zapsplat_christmas_funk.wav");
 
     private static final URL SCORE_SOUND_PATH = MusicHelper.class.getResource("zapsplat_multimedia_beep_bright_87460.wav"); //Sound from Zapsplat.com
-    private static final URL JUMP_SOUND_PATH = MusicHelper.class.getResource("zapsplat_cartoon_voice_high_pitched_says_ouch_001_15792.wav"); //Sound from Zapsplat.com
+    private static final URL JUMP_SOUND_PATH = MusicHelper.class.getResource("zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_002_78374.wav"); //Sound from Zapsplat.com
     private static final URL DEAD_SOUND_PATH = MusicHelper.class.getResource("zapsplat_cartoon_voice_high_pitched_says_ouch_001_15792.wav"); //Sound from Zapsplat.com
     private static final URL GAME_OVER_PATH = MusicHelper.class.getResource("zapsplat_human_male_voice_says_game_over_001_15726.wav"); //Sound from Zapsplat.com
 
