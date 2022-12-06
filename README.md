@@ -1,5 +1,8 @@
 # ECSE 437 Software Delivery Final Project
 [![Java CI with Maven](https://github.com/sandyl289/XmasDash/actions/workflows/maven.yml/badge.svg)](https://github.com/sandyl289/XmasDash/actions/workflows/maven.yml)
+
+# Note
+We are not testing `Main` class, helper classes (`ImageHelper`, `KeyHandler`, `MusicHelper`) and some UI functions such as `paint(Graphics2D g2)` in `Landcape`. We are also not testing functions in `GamePanel`
 # XmasDash 🎄💨
 
 Project inspired by [Dino T-Rex (Chrome Dino)](https://dino-chrome.com/en) game.
