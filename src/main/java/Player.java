@@ -1,18 +1,26 @@
 import java.awt.image.BufferedImage;
+import java.net.URL;
+
+import javax.imageio.ImageIO;
 
 public class Player {
     private int score = 0;
     private static final int POS_X = 20;
     private int posY;
-    private final BufferedImage dino1BufferedImage;
+    private BufferedImage dino1BufferedImage;
     public static final int SIZE_DINO = 70;
     public static final int INITIAL_Y_POS = 382;
     private boolean isJumping = false;
 
     Player(){
-        ImageHelper imageHelper = new ImageHelper();
-        String pathDinoImg = "src/files/dino1.png";
-        this.dino1BufferedImage = imageHelper.getBufferedImg(pathDinoImg);
+        URL pathDinoImg = Player.class.getResource("dino1.png");
+        try{
+
+            this.dino1BufferedImage = ImageIO.read(pathDinoImg);
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
         this.posY = INITIAL_Y_POS;
     }
 
